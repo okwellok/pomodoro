@@ -35,7 +35,7 @@ timerService.onTick((duration) => {
 
 timerService.onEnd(() => {
   timerUI.setUIState(UIState.Reset);
-  message('Timer is done', { type: 'info' }).then(() =>
+  message(timerService.mode === 'Work' ?  '休息' : '工作', { type: 'info' }).then(() =>
     timerService.nextCycle(),
   );
 });
