@@ -68,6 +68,16 @@ export class TimerService {
 
   nextCycle = () => invoke('next_timer_cycle');
 
+  triggerTrayMenu() {
+    invoke('trigger_tray_menu')
+      .then(() => {
+        console.log('Tray menu triggered');
+      })
+      .catch((err) => {
+        console.error('Failed to trigger tray menu', err);
+      });
+  }
+
   get duration() {
     return this._duration;
   }

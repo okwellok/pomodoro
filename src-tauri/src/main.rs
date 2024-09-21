@@ -135,7 +135,8 @@ fn create_app<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::App<R> {
       next_timer_cycle,
       get_timer_state,
       get_settings,
-      set_settings
+      set_settings,
+      trigger_tray_menu
     ])
     .build(tauri::generate_context!())
     .expect("Error while building tauri application")

@@ -35,9 +35,14 @@ timerService.onTick((duration) => {
 
 timerService.onEnd(() => {
   timerUI.setUIState(UIState.Reset);
-  message(timerService.mode === 'Work' ?  '休息' : '工作', { type: 'info' }).then(() =>
-    timerService.nextCycle(),
+  message(timerService.mode === 'Work' ?  '休息' : '工作', { type: 'info' }).then(() =>{
+    timerService.nextCycle();
+    // 触发托盘菜单显示
+   if (timerService.mode === 'Work') 
+      timerService.triggerTrayMenu();
+  }
   );
+   
 });
 
 timerService.onPause(() => {

@@ -1,4 +1,4 @@
-use tauri::{command, Runtime, State, Window};
+use tauri::{command, Runtime, State, Window, Manager, PhysicalPosition};
 
 use crate::{
   state::{Pomodoro, TimerMode},
@@ -16,6 +16,28 @@ fn update_pomodoro_state(state: &Pomodoro) -> Pomodoro {
       cycles: state.cycles,
     },
   }
+}
+
+#[command]
+pub fn trigger_tray_menu<R: Runtime>(app: tauri::AppHandle<R>) {
+    // 手动触发托盘菜单显示（这通常是响应点击事件）
+    // 但是在 Tauri 中没有直接展示托盘菜单的方法，可以执行一些与托盘有关的逻辑
+    let window = app.get_window(crate::MAIN_WINDOW_LABEL).unwrap();
+    if let Some(monitor) = window.primary_monitor().unwrap() {
+      // 获取屏幕尺寸
+      let screen_size = monitor.size();
+
+      // 获取窗口尺寸
+      let window_size = window.outer_size().unwrap();
+
+      // 计算窗口居中的坐标
+      let x = (screen_size.width - window_size.width) / 2;
+      let y = (screen_size.height - window_size.height) / 2;
+
+      // 设置窗口位置为居中
+      window.set_position(PhysicalPosition::new(x, y)).unwrap();
+  }
+    window.show().unwrap(); // 显示主窗口
 }
 
 #[command]
